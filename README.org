@@ -26,12 +26,12 @@ Quelpa (or your preferred package manager).
 
 Just run the ~M-x thanks~ command to star all your installed packages.
 
-** TODO
+** TODO:
 
-- [ ] Automatically give a star when installing a package
-- [ ] Maintain a cache of already starred projects to make next runs faster
-- [ ] Add support for other Git forges besides GitHub
-- [ ] Add configuration for excluding certain projects or authors
+- :white_large_square: [[https://github.com/FrostyX/thanks/issues/1][Automatically give a star when installing a package]]
+- :white_large_square: [[https://github.com/FrostyX/thanks/issues/2][Maintain a cache of already starred projects to make next runs faster]]
+- :white_large_square: [[https://github.com/FrostyX/thanks/issues/3][Add support for other Git forges besides GitHub]]
+- :white_large_square: [[https://github.com/FrostyX/thanks/issues/4][Add configuration for excluding certain projects or authors]]
 
 ** Troubleshooting
 

@@ -1,0 +1,58 @@
+* ~M-x thanks~
+
+Say thanks to the authors of all your installed packages.
+
+GitHub stars are meaningless internet points that don't provide any real-life
+value. At the same time, it is very much true that it warms developers' hearts
+when you like their projects and give them a star as a form of appreciation.
+
+I promise you, by running ~M-x thanks~, you will make somebody's day better.
+
+** Installation
+
+This package is not in MELPA yet. Please install from upstream using
+Quelpa (or your preferred package manager).
+
+#+BEGIN_SRC emacs-lisp
+(use-package thanks
+  :ensure t
+  :quelpa (thanks
+           :fetcher github
+           :repo "FrostyX/thanks"
+           :branch "main"))
+#+END_SRC
+
+** Usage
+
+Just run the ~M-x thanks~ command to star all your installed packages.
+
+** TODO
+
+- [ ] Automatically give a star when installing a package
+- [ ] Maintain a cache of already starred projects to make next runs faster
+- [ ] Add support for other Git forges besides GitHub
+- [ ] Add configuration for excluding certain projects or authors
+
+** Troubleshooting
+
+This package is built on top of [[https://github.com/sigma/gh.el][gh.el]], which can use an existing API token from
+your system. The chance is, you won't have to configure anything. Try running
+the ~M-x thanks-test-github-auth~ to make sure.
+
+If the authentication failed, see if ~gh.el~ could find your token.
+
+#+BEGIN_SRC emacs-lisp
+(gh-auth-get-oauth-token)
+#+END_SRC
+
+If not, see what token is being used by your official ~gh~ command.
+
+#+BEGIN_SRC
+gh auth status --show-token
+#+END_SRC
+
+And then set the token manually.
+
+#+BEGIN_SRC emacs-lisp
+(gh-set-config "oauth-token" "supersecrettoken")
+#+END_SRC

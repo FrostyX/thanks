@@ -56,3 +56,7 @@ And then set the token manually.
 #+BEGIN_SRC emacs-lisp
 (gh-set-config "oauth-token" "supersecrettoken")
 #+END_SRC
+
+** Credits
+
+This package was inspired by [[https://github.com/jsongerber/thanks.nvim][jsongerber/thanks.nvim]] plugin for NeoVim.

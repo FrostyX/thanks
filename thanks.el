@@ -73,7 +73,7 @@
   (interactive)
   (let* ((api (gh-repos-api))
          (response (gh-repos-user-list api))
-         (status (oref response :http-status)))
+         (status (slot-value response 'http-status)))
     (if (and (>= status 200) (< status 300))
         (message "GitHub authentication OK.")
       (message
@@ -116,7 +116,7 @@
          (owner (gh-user :login owner))
          (repo (gh-repos-repo :name project :owner owner))
          (response (gh-repos-star api repo))
-         (status (oref response :http-status)))
+         (status (slot-value response 'http-status)))
     (and (>= status 200) (< status 300))))
 
 (defun thanks--github-star-url (url)

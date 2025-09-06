@@ -31,9 +31,21 @@
 
 ;;; Code:
 
+;;;; Requirements
+
+(require 'gh)
+
 ;;;; Customization
 
 ;;;; Modes
+
+;;;###autoload
+(define-minor-mode thanks-mode
+  "Automatically give thanks after installing a package."
+  :global t
+  (if thanks-mode
+      (advice-add 'package-install :after #'thanks--after-install)
+    (advice-remove 'package-install #'thanks--after-install)))
 
 ;;;; Variables
 
@@ -113,6 +125,19 @@
          (owner (car args))
          (project (cadr args)))
     (thanks--github-star owner project)))
+
+(defun thanks--after-install (package)
+  (let* ((name (if (package-desc-p package)
+                   (package-desc-name package)
+                 package))
+         (name (symbol-name name))
+         (url (thanks--package-homepage name)))
+    (when (thanks--github-project-url? url)
+      ;; Since this is a non-critical, more like for-fun package, I think we
+      ;; should not error-out but rather only show a message if something went
+      ;; wrong. We don't want to bother users too much.
+      (unless (thanks--github-star-url url)
+        (message "Failed to star a GitHub project %s" url)))))
 
 ;;;; Footer
 

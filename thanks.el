@@ -53,6 +53,7 @@
 
 ;;;; Commands
 
+;;;###autoload
 (defun thanks ()
   "Say thanks to the authors of all your installed packages."
   (interactive)
@@ -68,6 +69,7 @@
        urls)
       (message "Said thanks to %s projects" (length urls)))))
 
+;;;###autoload
 (defun thanks-test-github-auth ()
   "A best effort read-only test whether GitHub authentication works."
   (interactive)

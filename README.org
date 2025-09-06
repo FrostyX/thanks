@@ -19,12 +19,16 @@ Quelpa (or your preferred package manager).
   :quelpa (thanks
            :fetcher github
            :repo "FrostyX/thanks"
-           :branch "main"))
+           :branch "main")
+  :config
+  (thanks-mode))
 #+END_SRC
 
 ** Usage
 
-Just run the ~M-x thanks~ command to star all your installed packages.
+Enable ~thanks-mode~ to automatically star all new packages as they are being
+installed, or run ~M-x thanks~ command to star all your already installed
+packages.
 
 ** TODO:
 

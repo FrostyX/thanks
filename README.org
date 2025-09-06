@@ -3,8 +3,9 @@
 Say thanks to the authors of all your installed packages.
 
 GitHub stars are meaningless internet points that don't provide any real-life
-value. At the same time, it is very much true that it warms developers' hearts
-when you like their projects and give them a star as a form of appreciation.
+value, but at the same time, it is very much true that it warms developers'
+hearts when you like their projects and give them a star as a form of
+appreciation.
 
 I promise you, by running ~M-x thanks~, you will make somebody's day better.
 
@@ -15,7 +16,6 @@ Quelpa (or your preferred package manager).
 
 #+BEGIN_SRC emacs-lisp
 (use-package thanks
-  :ensure t
   :quelpa (thanks
            :fetcher github
            :repo "FrostyX/thanks"
@@ -39,9 +39,9 @@ packages.
 
 ** Troubleshooting
 
-This package is built on top of [[https://github.com/sigma/gh.el][gh.el]], which can use an existing API token from
-your system. The chance is, you won't have to configure anything. Try running
-the ~M-x thanks-test-github-auth~ to make sure.
+This package is built on top of [[https://github.com/sigma/gh.el][gh.el]], which can use existing API tokens from
+your system. The chance is, you won't have to configure anything to make
+~thanks~ work. Try running the ~M-x thanks-test-github-auth~ to make sure.
 
 If the authentication failed, see if ~gh.el~ could find your token.
 

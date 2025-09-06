@@ -5,7 +5,7 @@
 ;; Author: Jakub Kadlčík <frostyx@email.cz>
 ;; URL: https://github.com/FrostyX/thanks
 ;; Version: 1.0
-;; Package-Requires: ((emacs "25.1") (gh "20230825"))
+;; Package-Requires: ((emacs "25.1") (gh "1.0.1"))
 ;; Keywords: tools
 
 ;;; License:
@@ -26,7 +26,7 @@
 ;;; Commentary:
 
 ;; This package allows you to give a GitHub stars to all your installed
-;; packages. More info in the project README
+;; packages.  More info in the project README
 
 
 ;;; Code:
@@ -34,6 +34,7 @@
 ;;;; Requirements
 
 (require 'gh)
+(require 'package)
 
 ;;;; Customization
 
@@ -43,6 +44,7 @@
 (define-minor-mode thanks-mode
   "Automatically give thanks after installing a package."
   :global t
+  :group 'thanks
   (if thanks-mode
       (advice-add 'package-install :after #'thanks--after-install)
     (advice-remove 'package-install #'thanks--after-install)))
@@ -69,11 +71,11 @@
 (defun thanks-test-github-auth ()
   "A best effort read-only test whether GitHub authentication works."
   (interactive)
-  (let* ((api (make-instance gh-repos-api))
+  (let* ((api (gh-repos-api))
          (response (gh-repos-user-list api))
          (status (oref response :http-status)))
     (if (and (>= status 200) (< status 300))
-        (message "GitHub authentication works.")
+        (message "GitHub authentication OK.")
       (message
        (concat "GitHub authentication failed. "
                "See the troubleshooting section in the project README")))))
@@ -110,9 +112,9 @@
 (defun thanks--github-star (owner project)
   "Give a star to a GitHub PROJECT by this OWNER."
   (let* ((inhibit-message t)
-         (api (make-instance gh-repos-api))
-         (owner (make-instance gh-user :login owner))
-         (repo (make-instance gh-repos-repo :name project :owner owner))
+         (api (gh-repos-api))
+         (owner (gh-user :login owner))
+         (repo (gh-repos-repo :name project :owner owner))
          (response (gh-repos-star api repo))
          (status (oref response :http-status)))
     (and (>= status 200) (< status 300))))
@@ -127,6 +129,7 @@
     (thanks--github-star owner project)))
 
 (defun thanks--after-install (package)
+  "Call this after installing a PACKAGE to give thanks."
   (let* ((name (if (package-desc-p package)
                    (package-desc-name package)
                  package))

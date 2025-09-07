@@ -38,6 +38,17 @@
 
 ;;;; Customization
 
+(defgroup thanks nil
+  "Thanks package."
+  :prefix "thanks-"
+  :group 'thanks)
+
+(defcustom thanks-excluded-packages
+  '()
+  "A list of package names that are not to be starred."
+  :type '(repeat string)
+  :group 'thanks)
+
 ;;;; Modes
 
 ;;;###autoload
@@ -57,7 +68,11 @@
 (defun thanks ()
   "Say thanks to the authors of all your installed packages."
   (interactive)
-  (let* ((urls (mapcar #'thanks--package-homepage (thanks--installed-packages)))
+  (let* ((packages (thanks--installed-packages))
+         (packages (seq-filter
+                    (lambda (p) (not (member p thanks-excluded-packages)))
+                    packages))
+         (urls (mapcar #'thanks--package-homepage packages))
          (urls (seq-filter #'thanks--github-project-url? urls)))
     (when (y-or-n-p
            (format "Do you want to say thanks to %d projects? " (length urls)))

@@ -30,12 +30,24 @@ Enable ~thanks-mode~ to automatically star all new packages as they are being
 installed, or run ~M-x thanks~ command to star all your already installed
 packages.
 
+** Configuration
+
+You shouldn't need to configure your GitHub API token. Try ~M-x
+thanks-test-github-auth~ and only if unsuccessfull, see the
+[[#troubleshooting][Troubleshooting section]].
+
+You can exclude some of the installed packages from being stared:
+
+#+BEGIN_SRC emacs-lisp
+(setq thanks-excluded-packages '("tramp-menu" "crontab-for-humans"))
+#+END_SRC
+
 ** TODO:
 
 - :white_check_mark: [[https://github.com/FrostyX/thanks/issues/1][Automatically give a star when installing a package]]
 - :white_large_square: [[https://github.com/FrostyX/thanks/issues/2][Maintain a cache of already starred projects to make next runs faster]]
 - :white_large_square: [[https://github.com/FrostyX/thanks/issues/3][Add support for other Git forges besides GitHub]]
-- :white_large_square: [[https://github.com/FrostyX/thanks/issues/4][Add configuration for excluding certain projects or authors]]
+- :black_large_square: [[https://github.com/FrostyX/thanks/issues/4][Add configuration for excluding certain projects or authors]]
 
 ** Troubleshooting
 

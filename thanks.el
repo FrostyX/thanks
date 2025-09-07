@@ -84,10 +84,12 @@
                       i (length urls))
              (sit-for 60))
            (message "[%d/%d] Saying thanks to %s" i (length urls) url)
-           (unless (thanks--github-star-url url)
-             (error "Failed to star a GitHub project %s" url))))
+           (when (thanks--github-project-exists? url)
+             (unless (thanks--github-star-url url)
+               (error "Failed to star a GitHub project %s" url)))))
        urls)
-      (message "Said thanks to %s projects" (length urls)))))
+      (message "Said thanks to %s projects! You just made somebody's day better."
+               (length urls)))))
 
 ;;;###autoload
 (defun thanks-test-github-auth ()
@@ -130,6 +132,20 @@
                 (path (string-remove-suffix "/" path))
                 (args (split-string path "/")))
            (= (length args) 2)))))
+
+(defun thanks--github-project-exists? (url)
+  "Does this a GitHub project with this URL exist?
+The `gh.el' library cannot handle renamed projects (at least when giving stars),
+and bombs out.  See https://github.com/sigma/gh.el/issues/106
+
+For this reason, we need to always make sure that a project exists before
+modifying it in any way."
+  (let* ((inhibit-message t)
+         (owner-project (thanks--github-url-to-owner-project url))
+         (owner (car owner-project))
+         (project (cdr owner-project))
+         (repo (gh-repos-repo-get (gh-repos-api) project owner)))
+    (equal url (slot-value (slot-value repo 'data) 'html-url))))
 
 (defun thanks--github-star (owner project)
   "Give a star to a GitHub PROJECT by this OWNER."

@@ -166,6 +166,15 @@ modifying it in any way."
          (project (cadr args)))
     (thanks--github-star owner project)))
 
+(defun thanks--github-url-to-owner-project (url)
+  "Parse `(owner . project)' pair from a GitHub project URL."
+  (let* ((args (split-string
+                (string-remove-prefix "https://github.com/" url)
+                "/"))
+         (owner (car args))
+         (project (cadr args)))
+    (cons owner project)))
+
 (defun thanks--after-install (package)
   "Call this after installing a PACKAGE to give thanks."
   (let* ((name (if (package-desc-p package)

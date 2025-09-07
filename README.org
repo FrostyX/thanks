@@ -9,7 +9,7 @@ appreciation.
 
 I promise you, by running ~M-x thanks~, you will make somebody's day better.
 
-[[images/thanks.gif][M-x thanks]]
+[[images/thanks.gif]]
 
 ** Installation
 

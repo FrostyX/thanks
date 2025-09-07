@@ -9,6 +9,8 @@ appreciation.
 
 I promise you, by running ~M-x thanks~, you will make somebody's day better.
 
+[[images/thanks.gif][M-x thanks]]
+
 ** Installation
 
 This package is not in MELPA yet. Please install from upstream using

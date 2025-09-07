@@ -1,6 +1,6 @@
 * ~M-x thanks~
 
-Say thanks to the authors of all your installed packages.
+_:star:_ Say thanks to the authors of all your installed packages _:star:_
 
 GitHub stars are meaningless internet points that don't provide any real-life
 value, but at the same time, it is very much true that it warms developers'

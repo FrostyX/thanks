@@ -78,9 +78,14 @@
            (format "Do you want to say thanks to %d projects? " (length urls)))
       (seq-do-indexed
        (lambda (url i)
-         (message "[%d/%d] Saying thanks to %s" i (length urls) url)
-         (unless (thanks--github-star-url url)
-           (error "Failed to star a GitHub project %s" url)))
+         (let ((i (1+ i)))
+           (when (= (mod i 30) 0)
+             (message "[%d/%d] Waiting a minute to not exceed GitHub rate limits"
+                      i (length urls))
+             (sit-for 60))
+           (message "[%d/%d] Saying thanks to %s" i (length urls) url)
+           (unless (thanks--github-star-url url)
+             (error "Failed to star a GitHub project %s" url))))
        urls)
       (message "Said thanks to %s projects" (length urls)))))
 

@@ -11,6 +11,17 @@ I promise you, by running ~M-x thanks~, you will make somebody's day better.
 
 [[images/thanks.gif]]
 
+** Considerations
+
+By automatically starring all installed packages and their dependencies, you can
+potentially reveal information about yourself and your daily activities. It
+is not an issue for people like me, who have their whole Emacs config publicly
+available in a dotfiles repository. But it can be a factor for you. Before
+installing, please give it a thought.
+
+If needed, there are possibilities for limiting what information you reveal
+about yourself, such as excluding some packages from being starred.
+
 ** Installation
 
 This package is not in MELPA yet. Please install from upstream using

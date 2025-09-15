@@ -24,15 +24,11 @@ about yourself, such as excluding some packages from being starred.
 
 ** Installation
 
-This package is not in MELPA yet. Please install from upstream using
-Quelpa (or your preferred package manager).
+The package is available on [[https://melpa.org/#/thanks][MELPA]]
 
 #+BEGIN_SRC emacs-lisp
 (use-package thanks
-  :quelpa (thanks
-           :fetcher github
-           :repo "FrostyX/thanks"
-           :branch "main")
+  :ensure t
   :config
   (thanks-mode))
 #+END_SRC

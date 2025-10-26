@@ -73,7 +73,10 @@
                     (lambda (p) (not (member p thanks-excluded-packages)))
                     packages))
          (urls (mapcar #'thanks--package-homepage packages))
+         (urls (delete-dups urls))
+         (urls (seq-filter #'identity urls))
          (urls (seq-filter #'thanks--github-project-url? urls)))
+    (print urls)
     (when (y-or-n-p
            (format "Do you want to say thanks to %d projects? " (length urls)))
       (seq-do-indexed
@@ -114,15 +117,26 @@
   "Get names of all installed packages."
   (mapcar
    (lambda (package)
-     (symbol-name (car package)))
-   package-alist))
+     (symbol-name package))
+   features))
+
+(defun frostyx/find-library-name (name)
+  ;; Trying this as a faster implementation of built-in `find-library-name'
+  (let* ((path (locate-library name t))
+         (path (concat
+                ;; TODO there is a nosuffix arg for locate-library
+                (file-name-sans-extension
+                 path)
+                ".el")))
+    (when (file-exists-p path) path)))
 
 (defun thanks--package-homepage (name)
   "Find a package by its NAME and return its homepage URL."
-  (let* ((symbol (intern name))
-         (desc (cadr (assoc symbol package-alist)))
-         (extras (package-desc-extras desc)))
-    (cdr (assoc :url extras))))
+  (let ((path (ignore-errors (frostyx/find-library-name name))))
+    (when (and path (not (string-suffix-p ".el.gz" path)))
+      (with-temp-buffer
+        (insert-file-contents path)
+        (lm-header "URL")))))
 
 (defun thanks--github-project-url? (url)
   "Is this URL a github project?"
